@@ -1,0 +1,25 @@
+{
+  "name": "boiler-plate",
+  "version": "1.0.0",
+  "description": "boiler plate",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TripleJBlog/boiler-plate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TripleJBlog/boiler-plate/issues"
+  },
+  "homepage": "https://github.com/TripleJBlog/boiler-plate#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.8"
+  }
+}
