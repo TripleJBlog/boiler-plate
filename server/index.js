@@ -18,6 +18,9 @@ mongoose
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => res.send("CleanWater!!"));
+app.get("/api/hello", (req, res) => {
+  res.send("Hello~");
+});
 app.post("/register", (req, res) => {
   const user = new User(req.body);
   user.save((err, userInfo) => {
