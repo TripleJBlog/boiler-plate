@@ -1,7 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
+const router = express.Router();
+const mongoose = require("mongoose");
 const port = process.env.SERVER_PORT || 5000;
 const bodyParser = require("body-parser");
 
@@ -19,6 +20,7 @@ mongoose
 
 app.get("/", (req, res) => res.send("CleanWater!!"));
 app.get("/api/hello", (req, res) => {
+  console.log("/api/hello called");
   res.send("Hello~");
 });
 app.post("/register", (req, res) => {

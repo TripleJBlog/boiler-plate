@@ -12,7 +12,6 @@ import LandingPage from "./components/views/LandingPage/LandingPage";
 render(
   <BrowserRouter>
     <Routes>
-      <Route index element={<NavBar />} />
       <Route path="/" element={<LandingPage />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
