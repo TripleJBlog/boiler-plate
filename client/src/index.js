@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ReactDOM, render } from "react-dom";
+import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/views/NavBar";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
@@ -18,7 +18,8 @@ const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
   ReduxThunk
 )(createStore);
-ReactDOM.render(
+
+render(
   <Provider
     store={createStoreWithMiddleware(
       Reducer,
@@ -27,8 +28,12 @@ ReactDOM.render(
     )}
   >
     <App />
-  </Provider>
+  </Provider>,
+  document.getElementById("root")
 );
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA);
 // render(
 //   <BrowserRouter>
 //     <Routes>
