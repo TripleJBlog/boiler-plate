@@ -5,6 +5,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const { auth } = require("./middleware/auth");
 const port = process.env.SERVER_PORT || 5000;
 
 // application/x-www-form-urlencoded
@@ -25,7 +26,7 @@ app.get("/api/hello", (req, res) => {
   console.log("/api/hello called");
   res.send("Hello~");
 });
-app.post("/register", (req, res) => {
+app.post("/api/users/register", (req, res) => {
   const user = new User(req.body);
   user.save((err, userInfo) => {
     if (err) return res.json({ success: false, err });
@@ -34,7 +35,7 @@ app.post("/register", (req, res) => {
     });
   });
 });
-app.post("/login", (req, res) => {
+app.post("/api/users/login", (req, res) => {
   // 1. Look up requested email from DB
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user) {
@@ -61,6 +62,21 @@ app.post("/login", (req, res) => {
         userId: user._id,
       });
     });
+  });
+});
+
+// Auth router
+app.get("/api/users/auth", auth, (req, res) => {
+  // middleware authentication test passed
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image: req.user.image,
   });
 });
 app.listen(port, () => console.log(`server is listening on ${port}!`));
