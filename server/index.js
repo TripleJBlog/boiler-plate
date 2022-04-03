@@ -36,30 +36,31 @@ app.post("/api/users/register", (req, res) => {
   });
 });
 app.post("/api/users/login", (req, res) => {
+  // console.log("post /api/users/login called");
   // 1. Look up requested email from DB
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user) {
       return res.json({
         loginSuccess: false,
-        message: "There is no user with that email.",
+        message: "Auth failed, email not found",
       });
     }
     // 2. If email exists in DB, check password
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (!isMatch) {
-        res.json({
+        return res.json({
           loginSuccess: false,
           message: "Password is not matched",
         });
       }
-    });
-    // 3. Generate Token to Cookie
-    user.generateToken((err, user) => {
-      if (err) return res.status(400).send(err);
+      // 3. Generate Token to Cookie
+      user.generateToken((err, user) => {
+        if (err) return res.status(400).send(err);
 
-      res.cookie("x_auth", user.token).status(200).json({
-        loginSuccess: true,
-        userId: user._id,
+        res.cookie("x_auth", user.token).status(200).json({
+          loginSuccess: true,
+          userId: user._id,
+        });
       });
     });
   });
